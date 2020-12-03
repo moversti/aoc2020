@@ -20,21 +20,21 @@ class RealPolicy:
         self.char = char
 
     def test_pass(self, pw: str):
-        return False
+        return (pw[self.i1] == self.char and pw[self.i2] != self.char) or (pw[self.i1] != self.char and pw[self.i2] == self.char)
 
 
 n = 0
 for rivi in rivit:
     p = Policy(rivi.partition('-')[0], rivi.partition('-')[2].partition(' ')[0],
                rivi.partition(':')[0].partition(' ')[2])
-    if p.test_pass(rivi.partition(':')[2][1:]):
+    if p.test_pass(rivi.partition(':')[2][1:-1]):
         n = n + 1
 print(n)
 
 n = 0
 for rivi in rivit:
     p = RealPolicy(rivi.partition('-')[0], rivi.partition('-')[2].partition(' ')[0],
-               rivi.partition(':')[0].partition(' ')[2])
-    if p.test_pass(rivi.partition(':')[2][1:]):
+                   rivi.partition(':')[0].partition(' ')[2])
+    if p.test_pass(rivi.partition(':')[2][1:-1]):
         n = n + 1
 print(n)
